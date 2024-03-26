@@ -29,13 +29,14 @@ class PriorityQueue:
         pass
 
     def heap_sort(self):
+        """Heap sort self.arr; note that heap size will become zero."""
         while self.hs:
             self.arr[0], self.arr[self.hs - 1] = self.arr[self.hs - 1], self.arr[0]
             self.hs -= 1
             self.__heapify(0)
 
     def top(self):
-        pass
+        return self.arr[0]
 
     def pop(self):
         pass
@@ -46,6 +47,5 @@ class PriorityQueue:
 
 if __name__ == "__main__":
     q = PriorityQueue([1, 2, 3, 4])
-    print("PQ", q.arr)
-    q.heap_sort()
-    print("PQ", q.arr)
+    print("Begin:", q.arr)
+    print("Top:", q.top())
