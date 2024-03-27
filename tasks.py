@@ -3,7 +3,7 @@ from invoke import task
 
 @task
 def run(c):
-    c.run("python ./src/priority_queue/priority_queue.py")
+    c.run("python ./src/stlcontainers/priority_queue.py")
 
 
 @task

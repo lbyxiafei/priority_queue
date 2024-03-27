@@ -1,6 +1,6 @@
 import pytest
 
-from priority_queue.priority_queue import PriorityQueue, PQEmptyError, PQSortError
+from stlcontainers.priority_queue import PriorityQueue, PQEmptyError, PQSortError
 
 
 @pytest.fixture
