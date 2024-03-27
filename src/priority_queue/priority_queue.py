@@ -6,7 +6,7 @@ class PriorityQueue:
         self.__build_heap()
 
     def __compare_should_on_top(self, lhs, rhs):
-        """Compare given elements lhs & rhs. 
+        """Compare given elements lhs & rhs.
         Return True if lhs should on be on top of rhs, as in heap.
         """
         if self.is_max_heap:
@@ -41,7 +41,7 @@ class PriorityQueue:
         Similar for min-heap, the update can only be 'decrease'.
         """
         self.arr[i] = e
-        while i and self.__compare_should_on_top(self.arr[i], self.arr[i//2]):
+        while i and self.__compare_should_on_top(self.arr[i], self.arr[i // 2]):
             self.arr[i // 2], self.arr[i] = self.arr[i], self.arr[i // 2]
             i //= 2
 
