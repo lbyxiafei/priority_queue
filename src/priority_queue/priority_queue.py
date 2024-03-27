@@ -47,6 +47,8 @@ class PriorityQueue:
 
     def heap_sort(self):
         """Heap sort self.arr; note that heap size will become zero."""
+        if not self.is_max_heap:
+            raise PQSortError()
         while self.hs:
             self.arr[0], self.arr[self.hs - 1] = self.arr[self.hs - 1], self.arr[0]
             self.hs -= 1
@@ -76,6 +78,11 @@ class PriorityQueue:
 class PQEmptyError(Exception):
     def __init__(self) -> None:
         super().__init__("Priority Queue is empty.")
+
+
+class PQSortError(Exception):
+    def __init__(self) -> None:
+        super().__init__("Sort is not supported for min heap.")
 
 
 if __name__ == "__main__":

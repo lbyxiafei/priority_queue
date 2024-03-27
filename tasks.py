@@ -36,9 +36,3 @@ def lint(c):
     """Lint the code."""
     c.run("black .")
     c.run("flake8 --max-line-length=90 .")
-
-
-@task(pre=[lint, test])
-def check(c):
-    """Check the code quality and run tests."""
-    pass
