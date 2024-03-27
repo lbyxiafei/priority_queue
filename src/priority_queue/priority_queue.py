@@ -1,8 +1,18 @@
 class PriorityQueue:
-    def __init__(self, arr=[]) -> None:
+    def __init__(self, arr=[], is_max_heap=True) -> None:
         self.arr = arr
         self.hs = len(arr)
+        self.is_max_heap = is_max_heap
         self.__build_heap()
+
+    def __compare_should_on_top(self, lhs, rhs):
+        """Compare given elements lhs & rhs. 
+        Return True if lhs should on be on top of rhs, as in heap.
+        """
+        if self.is_max_heap:
+            return lhs > rhs
+        else:
+            return lhs < rhs
 
     def __heapify(self, i: int):
         """Assume sub-nodes of i are all valid heaps.
@@ -10,9 +20,9 @@ class PriorityQueue:
         """
         idx = i
         l, r = idx * 2 + 1, idx * 2 + 2
-        if l < self.hs and self.arr[idx] < self.arr[l]:
+        if l < self.hs and self.__compare_should_on_top(self.arr[l], self.arr[idx]):
             idx = l
-        if r < self.hs and self.arr[idx] < self.arr[r]:
+        if r < self.hs and self.__compare_should_on_top(self.arr[r], self.arr[idx]):
             idx = r
         if idx != i:
             self.arr[i], self.arr[idx] = self.arr[idx], self.arr[i]
@@ -31,7 +41,7 @@ class PriorityQueue:
         Similar for min-heap, the update can only be 'decrease'.
         """
         self.arr[i] = e
-        while i and self.arr[i] > self.arr[i // 2]:
+        while i and self.__compare_should_on_top(self.arr[i], self.arr[i//2]):
             self.arr[i // 2], self.arr[i] = self.arr[i], self.arr[i // 2]
             i //= 2
 
@@ -69,5 +79,7 @@ class PQEmptyError(Exception):
 
 
 if __name__ == "__main__":
-    q = PriorityQueue([1, 2, 3, 4])
+    q = PriorityQueue([3, 1, 2, 3, 4])
+    print("PQ:", q.arr)
+    q.push(10)
     print("PQ:", q.arr)
