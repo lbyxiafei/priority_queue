@@ -25,8 +25,15 @@ class PriorityQueue:
         for i in range(self.hs // 2 - 1, -1, -1):
             self.__heapify(i)
 
-    def __increase_key(self, i, e):
-        pass
+    def __update_key(self, i: int, e):
+        """Update self.arr[i]  to be value of given e.
+        For max-heap, the update can only be 'increase';
+        Similar for min-heap, the update can only be 'decrease'.
+        """
+        self.arr[i] = e
+        while i and self.arr[i] > self.arr[i // 2]:
+            self.arr[i // 2], self.arr[i] = self.arr[i], self.arr[i // 2]
+            i //= 2
 
     def heap_sort(self):
         """Heap sort self.arr; note that heap size will become zero."""
@@ -36,16 +43,31 @@ class PriorityQueue:
             self.__heapify(0)
 
     def top(self):
+        if self.hs <= 0:
+            raise PQEmptyError()
         return self.arr[0]
 
     def pop(self):
-        pass
+        res = self.top()
+        self.arr[0], self.arr[self.hs - 1] = self.arr[self.hs - 1], self.arr[0]
+        self.hs -= 1
+        self.__heapify(0)
+        return res
 
     def push(self, e):
-        pass
+        if self.hs < len(self.arr):
+            self.arr[self.hs] = -float("inf")
+        else:
+            self.arr.append(-float("inf"))
+        self.hs += 1
+        self.__update_key(self.hs - 1, e)
+
+
+class PQEmptyError(Exception):
+    def __init__(self) -> None:
+        super().__init__("Priority Queue is empty.")
 
 
 if __name__ == "__main__":
     q = PriorityQueue([1, 2, 3, 4])
-    print("Begin:", q.arr)
-    print("Top:", q.top())
+    print("PQ:", q.arr)
